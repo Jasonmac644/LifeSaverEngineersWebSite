@@ -1,12 +1,12 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyARACmtQ6Dff3cr29I77qWxhyOQ_VEjeyU",
-  authDomain: "lifesaverengineersvitaltracker.firebaseapp.com",
-  databaseURL: "https://lifesaverengineersvitaltracker-default-rtdb.firebaseio.com",
-  projectId: "lifesaverengineersvitaltracker",
-  storageBucket: "lifesaverengineersvitaltracker.appspot.com",
-  messagingSenderId: "927967858924",
-  appId: "1:927967858924:web:6ecf7d4d3d3c8e1dfe55c9",
-  measurementId: "G-YCCL1BLSJ6"
+	apiKey: process.env.REACT_APP_FBAPIKEY,
+	authDomain: process.env.REACT_APP_FBAUTHDOMAIN,
+	databaseURL: process.env.REACT_APP_FBDATABASEURL,
+	projectId: process.env.REACT_APP_FBPROJECTID,
+	storageBucket: process.env.REACT_APP_FBSTORAGEBUCKET,
+	messagingSenderId: process.env.REACT_APP_FBMESSAGINGSENDERID,
+	appId: process.env.REACT_APP_FBAPPID,
+	measurementId: process.env.REACT_APP_FBMEASUREMENTID,
 };
 
 export default firebaseConfig;
