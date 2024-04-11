@@ -1,13 +1,13 @@
 import {
-  List,
-  Divider,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Box,
-  Stack,
-  Drawer,
+	List,
+	Divider,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Box,
+	Stack,
+	Drawer,
 } from "@mui/material";
 import { MainLogo } from "../assets";
 import appColor from "../styles/colors";
@@ -20,119 +20,119 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Context } from "../hooks/contexts/AuthContext";
 import { Dashboard } from "../containers";
 const DrawerList = ({ drawerWidth }, ...props) => {
-  const navigate = useNavigate();
-  const curLocation = useLocation();
-  const { logOut } = useContext(Context);
+	const navigate = useNavigate();
+	const curLocation = useLocation();
+	const { logOut } = useContext(Context);
 
-  //If user ever decides to try and navigate to "/"
-  useEffect(() => {
-    if (curLocation.pathname === "/") {
-      navigate("/dashboard");
-    }
-    return () => {};
-  }, [curLocation, navigate]);
+	//If user ever decides to try and navigate to "/"
+	useEffect(() => {
+		if (curLocation.pathname === "/") {
+			navigate("/dashboard");
+		}
+		return () => {};
+	}, [curLocation, navigate]);
 
-  //Signout
-  const handleSignOut = () => {
-    logOut()
-      .then(() => {
-        navigate("/login");
-      })
-      .catch((error) => console.error(error));
-  };
-  const menuItems = [
-    { text: "Dashboard", icon: <DashboardCustomizeIcon />, path: "/dashboard" },
-    { text: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
-    // { text: "Profile", icon: <DashboardCustomizeIcon />, path: "/profile" },
-    // { text: "Drafts", icon: <AccountCircleIcon />, path: "/drafts" },
-  ];
-  return (
-    <Box
-      sx={{
-        width: drawerWidth,
-        display: "flex",
-        flexDirection: "column",
-        bgcolor: appColor.ashGreen,
-      }}
-      height="100%"
-    >
-      <Stack
-        pl="15px"
-        pt="10px"
-        direction="row"
-        sx={{ alignItems: "center", cursor: "pointer" }}
-      >
-        <img src={MainLogo} alt="Main Logo" height="35px" width="35px" />
-        <EText style={{ paddingLeft: "10px" }} type="b18">
-          LifeSaverEngineers
-        </EText>
-      </Stack>
-      <Divider sx={{ my: "10px" }} />
-      <Box sx={{ flexGrow: 1 }}>
-        <List>
-          {menuItems.map((item, index) => (
-            <ListItem key={item.text} disablePadding sx={{ height: "41px" }}>
-              <ListItemButton
-                selected={curLocation.pathname === item.path}
-                sx={{
-                  height: "40px",
-                  borderRadius: "20px",
-                  marginX: "10px",
-                  pl: "10px",
-                }}
-                onClick={() => navigate(item.path)}
-              >
-                <ListItemIcon sx={{ minWidth: 30, paddingRight: "10px" }}>
-                  {React.cloneElement(item.icon, { sx: { height: "25px" } })}
-                </ListItemIcon>
-                <ListItemText primary={<EText type="B16">{item.text}</EText>} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-      <Divider />
-      <List>
-        <ListItem key={"Logout"} disablePadding sx={{ height: "40px" }}>
-          <ListItemButton
-            sx={{
-              height: "40px",
-              borderRadius: "20px",
-              marginX: "10px",
-              pl: "10px",
-            }}
-            onClick={() => {
-              handleSignOut();
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 30, paddingRight: "5px" }}>
-              <LogoutOutlinedIcon sx={{ height: "25px" }} />
-            </ListItemIcon>
-            <ListItemText primary={<EText type="b18">Logout</EText>} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  );
+	//Signout
+	const handleSignOut = () => {
+		logOut()
+			.then(() => {
+				navigate("/login");
+			})
+			.catch((error) => console.error(error));
+	};
+	const menuItems = [
+		{ text: "Dashboard", icon: <DashboardCustomizeIcon />, path: "/dashboard" },
+		{ text: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
+		// { text: "Profile", icon: <DashboardCustomizeIcon />, path: "/profile" },
+		// { text: "Drafts", icon: <AccountCircleIcon />, path: "/drafts" },
+	];
+	return (
+		<Box
+			sx={{
+				width: drawerWidth,
+				display: "flex",
+				flexDirection: "column",
+				bgcolor: appColor.ashGreen,
+			}}
+			height="100%"
+		>
+			<Stack
+				pl="15px"
+				pt="10px"
+				direction="row"
+				sx={{ alignItems: "center", cursor: "pointer" }}
+			>
+				<img src={MainLogo} alt="Main Logo" height="35px" width="35px" />
+				<EText style={{ paddingLeft: "10px" }} type="b18">
+					LifeSaverEngineers
+				</EText>
+			</Stack>
+			<Divider sx={{ my: "10px" }} />
+			<Box sx={{ flexGrow: 1 }}>
+				<List>
+					{menuItems.map((item, index) => (
+						<ListItem key={item.text} disablePadding sx={{ height: "41px" }}>
+							<ListItemButton
+								selected={curLocation.pathname === item.path}
+								sx={{
+									height: "40px",
+									borderRadius: "20px",
+									marginX: "10px",
+									pl: "10px",
+								}}
+								onClick={() => navigate(item.path)}
+							>
+								<ListItemIcon sx={{ minWidth: 30, paddingRight: "10px" }}>
+									{React.cloneElement(item.icon, { sx: { height: "25px" } })}
+								</ListItemIcon>
+								<ListItemText primary={<EText type="B16">{item.text}</EText>} />
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+			</Box>
+			<Divider />
+			<List>
+				<ListItem key={"Logout"} disablePadding sx={{ height: "40px" }}>
+					<ListItemButton
+						sx={{
+							height: "40px",
+							borderRadius: "20px",
+							marginX: "10px",
+							pl: "10px",
+						}}
+						onClick={() => {
+							handleSignOut();
+						}}
+					>
+						<ListItemIcon sx={{ minWidth: 30, paddingRight: "5px" }}>
+							<LogoutOutlinedIcon sx={{ height: "25px" }} />
+						</ListItemIcon>
+						<ListItemText primary={<EText type="b18">Logout</EText>} />
+					</ListItemButton>
+				</ListItem>
+			</List>
+		</Box>
+	);
 };
 
 const Layout = ({ children, ...props }) => {
-  const drawerWidth = "258px";
+	const drawerWidth = "258px";
 
-  return (
-    <Stack direction="row" height="100vh">
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        sx={{ width: drawerWidth, "& .MuiDrawer-paper": { borderWidth: 0 } }}
-      >
-        <DrawerList drawerWidth={drawerWidth} />
-      </Drawer>
-      <Box flexGrow={1} bgcolor={appColor.ashGreenTint}>
-        {<Outlet /> || <Dashboard />}
-      </Box>
-    </Stack>
-  );
+	return (
+		<Stack direction="row" height="100vh">
+			<Drawer
+				variant="permanent"
+				anchor="left"
+				sx={{ width: drawerWidth, "& .MuiDrawer-paper": { borderWidth: 0 } }}
+			>
+				<DrawerList drawerWidth={drawerWidth} />
+			</Drawer>
+			<Box flexGrow={1} bgcolor={appColor.ashGreenTint}>
+				{<Outlet /> || <Dashboard />}
+			</Box>
+		</Stack>
+	);
 };
 
 export default Layout;
