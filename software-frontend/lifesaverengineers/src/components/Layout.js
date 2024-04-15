@@ -16,7 +16,7 @@ import React, { useContext, useEffect } from "react";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, useLinkClickHandler } from "react-router-dom";
 import { Context } from "../hooks/contexts/AuthContext";
 import { Dashboard } from "../containers";
 const DrawerList = ({ drawerWidth }, ...props) => {
@@ -118,7 +118,7 @@ const DrawerList = ({ drawerWidth }, ...props) => {
 
 const Layout = ({ children, ...props }) => {
 	const drawerWidth = "258px";
-
+	const curLocation = useLocation()
 	return (
 		<Stack direction="row" height="100vh">
 			<Drawer
@@ -129,6 +129,12 @@ const Layout = ({ children, ...props }) => {
 				<DrawerList drawerWidth={drawerWidth} />
 			</Drawer>
 			<Box flexGrow={1} bgcolor={appColor.ashGreenTint}>
+				<Box width="100%" >
+					<EText type="B40" style={{color: appColor.kaki, textAlign:"center"}}>
+						{curLocation.pathname.toLocaleUpperCase().slice(1,100)}
+					</EText>
+					<Divider sx={{ my: "10px", borderWidth:"3px" }} />
+				</Box>
 				{<Outlet /> || <Dashboard />}
 			</Box>
 		</Stack>

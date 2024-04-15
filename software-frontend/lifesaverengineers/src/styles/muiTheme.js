@@ -16,14 +16,15 @@ const theme = createTheme({
             backgroundColor: appColor.ashGreenTint,
           },
           ":hover": {
-            backgroundColor:appColor.ashGreenTint
+            backgroundColor: appColor.ashGreenTint,
           },
-          "&.Mui-selected:hover":{
-            backgroundColor: appColor.ashGreenTint
-          }
+          "&.Mui-selected:hover": {
+            backgroundColor: appColor.ashGreenTint,
+          },
         },
       },
     },
+    
   },
 });
 

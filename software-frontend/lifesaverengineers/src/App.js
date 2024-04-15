@@ -16,7 +16,7 @@ const App = () => {
         </Protected>
       ),
       children: [
-        { path: "/dashboard", element: <Dashboard />, index: true },
+        { path: "/dashboard", element: <Dashboard />, index: true},
         { path: "/profile", element: <Profile /> },
       ],
     },
