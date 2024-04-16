@@ -1,6 +1,8 @@
 import { createTheme } from "@mui/material/styles";
 import appColor from "./colors";
 const theme = createTheme({
+  typography: {
+  },
   components: {
     MuiTextField: {
       styleOverrides: {
@@ -24,7 +26,19 @@ const theme = createTheme({
         },
       },
     },
-    
+    MuiPickersDay: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected.Mui-selected': {
+            backgroundColor: appColor.fawn,
+            '&:hover': {
+              backgroundColor: '#ff8787',
+            }
+          },
+        }
+      }
+    }
+  
   },
 });
 

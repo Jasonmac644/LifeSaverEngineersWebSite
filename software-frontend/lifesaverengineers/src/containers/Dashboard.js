@@ -1,4 +1,13 @@
-import { Box, Stack, Grid, Skeleton, Badge } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Grid,
+  Skeleton,
+  Badge,
+  appBarClasses,
+  useMediaQuery,
+} from "@mui/material";
+import GoogleMapReact from "google-map-react";
 import { useState, useContext, useEffect } from "react";
 import {
   XAxis,
@@ -19,10 +28,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { PickersDay } from "@mui/x-date-pickers/PickersDay";
+
 import dayjs from "dayjs";
 const Graph = (props) => {
   const { sx, data, loading, name } = props;
-  const width = 400;
+  const isDesktop = useMediaQuery("(min-width:500px)");
+  const width = isDesktop ? 400 : 330;
   const height = 300;
   return loading ? (
     <Skeleton
@@ -104,11 +115,19 @@ const Dashboard = () => {
   const [highlightedDays, setHighlightedDays] = useState([]);
   const [date, setDate] = useState(dayjs());
   const [loading, setLoading] = useState();
+  const isDesktop = useMediaQuery("(min-width:700px");
   const documentRef = doc(
     db,
     `userId/${user.uid}/vitals/${date.format("YYYYMMDD")}`
   );
-
+  const defaultProps = {
+    center: {
+      lat: 10.99835602,
+      lng: 77.01502627,
+    },
+    zoom: 2,
+  };
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
   //get key value from data with time stamp and return new obj
   const handleObject = (object, type) => {
     let name = type;
@@ -127,7 +146,6 @@ const Dashboard = () => {
   //fetchdata async
   const fetchGraphData = async () => {
     const docSnap = await getDoc(documentRef);
-	console.log("fetch")
     //setLoading(true);
     let results = [];
     if (docSnap.exists()) {
@@ -166,6 +184,11 @@ const Dashboard = () => {
           outsideCurrentMonth={outsideCurrentMonth}
           day={day}
           disabled={!isSelected ? true : false}
+          sx={{
+            "&.Mui-selected:hover, &.Mui-selected:inactive": {
+              backgroundColor: appColor.flax,
+            },
+          }}
         />
       </Badge>
     );
@@ -185,56 +208,114 @@ const Dashboard = () => {
     return results;
   };
   return (
-    <Stack direction="column">
-      <Stack direction="row" sx={{ justifyContent: "center" }}>
-        <EText
-          type="b30"
-          style={{ color: appColor.kaki, paddingRight: "10px" }}
-        >
-          Pick a date:
-        </EText>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DesktopDatePicker
-            value={date}
-            defaultValue={date}
-            onChange={(value) => setDate(value)}
-            slots={{
-              day: ServerDay,
-            }}
-            slotProps={{
-              day: {
-                highlightedDays,
-              },
-            }}
-          />
-        </LocalizationProvider>
-      </Stack>
-
-      <Grid
-        container
-        justifyContent="space-around"
-        flexGrow={1}
-        flexDirection="row"
+    <Stack direction="column" alignItems="center">
+      <Box
+        height={"400px"}
+        width={"90%"}
+        borderRadius="20px"
+        backgroundColor={appColor.kaki}
+        mt="20px"
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
       >
-        <Graph
-          sx={{ margin: "20px" }}
-          data={handleObject(data, "bodyTemp")}
-          loading={loading}
-          name="bodyTemp"
-        />
-        <Graph
-          sx={{ margin: "20px" }}
-          data={handleObject(data, "heartRate")}
-          loading={loading}
-          name="heartRate"
-        />
-        <Graph
-          sx={{ margin: "20px" }}
-          data={handleObject(data, "bodyTemp")}
-          loading={loading}
-          name="bodyTemp"
-        />
-      </Grid>
+        <div style={{ height: "350px", width: "90%", borderRadius:"20px" }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+              language: "en",
+              region: "en",
+            }}
+            defaultCenter={defaultProps.center}
+            defaultZoom={defaultProps.zoom}
+          >
+            <AnyReactComponent
+              lat={59.955413}
+              lng={30.337844}
+              text="My Marker"
+            />
+          </GoogleMapReact>
+        </div>
+      </Box>
+      <Box
+        height={"40%"}
+        width={"90%"}
+        borderRadius="20px"
+        backgroundColor={appColor.kaki}
+        mt="20px"
+      >
+        
+        <Stack
+          direction="row"
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+            my: "20px",
+            p: "10px",
+            borderRadius: "20px",
+          }}
+        >
+          <EText
+            type={isDesktop ? "b30" : "b20"}
+            style={{ paddingRight: "10px" }}
+          >
+            Select Date:
+          </EText>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DesktopDatePicker
+              value={date}
+              defaultValue={date}
+              onChange={(value) => setDate(value)}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  height: "40px",
+                  color: "black",
+                },
+              }}
+              slots={{
+                day: ServerDay,
+              }}
+              slotProps={{
+                day: {
+                  highlightedDays,
+                },
+                desktopPaper: {
+                  sx: {
+                    backgroundColor: appColor.ashGreen,
+                  },
+                },
+              }}
+            />
+          </LocalizationProvider>
+        </Stack>
+
+        <Grid
+          container
+          justifyContent="space-around"
+          flexGrow={1}
+          flexDirection="row"
+        >
+          <Graph
+            sx={{ margin: "20px" }}
+            data={handleObject(data, "bodyTemp")}
+            loading={loading}
+            name="bodyTemp"
+          />
+          <Graph
+            sx={{ margin: "20px" }}
+            data={handleObject(data, "heartRate")}
+            loading={loading}
+            name="heartRate"
+          />
+          <Graph
+            sx={{ margin: "20px" }}
+            data={handleObject(data, "bodyTemp")}
+            loading={loading}
+            name="bodyTemp"
+          />
+        </Grid>
+      </Box>
+      
     </Stack>
   );
 };

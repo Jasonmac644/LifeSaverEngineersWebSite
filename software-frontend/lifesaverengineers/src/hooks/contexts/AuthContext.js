@@ -11,7 +11,9 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { Firestore, getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import firebaseConfig from "../../firebase-config";
+import { getFunctions, httpsCallable } from "firebase/functions";
 export const Context = createContext();
 
 // Create a provider component
@@ -19,9 +21,11 @@ export const FirebaseProvider = ({ children }) => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const functions = getFunctions(app);
   const provider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
 
   const logOut = () => {
     setLoading(true);
@@ -40,14 +44,13 @@ export const FirebaseProvider = ({ children }) => {
     };
   }, []);
 
-
-
   const firebaseValue = {
     user: user,
     db: db,
     auth: auth,
     setUser: setUser,
     logOut: logOut,
+    app: app
   };
 
   return (
