@@ -213,7 +213,7 @@ const Layout = ({ children, ...props }) => {
         )}
         <DrawerList drawerWidth={drawerWidth}  closeDrawer={handleDrawerClose}/>
       </Drawer>
-      <Box flexGrow={1} bgcolor={appColor.ashGreenTint} width="100%" sx={!matches ? {height: "max-content"} : {height:"min-content"}}>
+      <Box flexGrow={1} bgcolor={appColor.ashGreenTint} width="100%" sx={!matches ? {height: "max-content"} : {height:"max-content"}}>
         <Box flex={1} bgcolor={appColor.kaki} >
           <EText type={matches?"B40":"b30"} style={{ color: "black", textAlign: "center", paddingTop:"10px" }}>
             {curLocation.pathname.toLocaleUpperCase().slice(1, 20)}

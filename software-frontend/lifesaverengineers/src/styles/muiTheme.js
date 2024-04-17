@@ -58,6 +58,16 @@ const theme = createTheme({
 				},
 			},
 		},
+		MuiPaper:{
+			styleOverrides: {
+				root: {
+					"&.MuiDrawer-paper":{
+						borderRight: "0",
+						backgroundColor: "transparent"
+					}
+				}
+			}
+		}
 	},
 });
 

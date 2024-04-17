@@ -177,7 +177,8 @@ const Dashboard = () => {
       <Badge
         key={props.day.toString()}
         overlap="circular"
-        badgeContent={isSelected ? "🔴" : undefined}
+        variant={isSelected ? "dot" : undefined}
+        color='error'
       >
         <PickersDay
           {...other}
@@ -210,7 +211,7 @@ const Dashboard = () => {
   return (
     <Stack direction="column" alignItems="center">
       <Box
-        height={"400px"}
+        height={"350px"}
         width={"90%"}
         borderRadius="20px"
         backgroundColor={appColor.kaki}
@@ -219,7 +220,7 @@ const Dashboard = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <div style={{ height: "350px", width: "90%", borderRadius:"20px" }}>
+        <div style={{ height: "350px", width: "90%", borderRadius: "20px" }}>
           <GoogleMapReact
             bootstrapURLKeys={{
               key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -243,8 +244,8 @@ const Dashboard = () => {
         borderRadius="20px"
         backgroundColor={appColor.kaki}
         mt="20px"
+        mb={"20px"}
       >
-        
         <Stack
           direction="row"
           sx={{
@@ -253,6 +254,9 @@ const Dashboard = () => {
             my: "20px",
             p: "10px",
             borderRadius: "20px",
+            "& .MuiFormControl-root": {
+              width: "auto",
+            },
           }}
         >
           <EText
@@ -261,7 +265,7 @@ const Dashboard = () => {
           >
             Select Date:
           </EText>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
             <DesktopDatePicker
               value={date}
               defaultValue={date}
@@ -271,6 +275,7 @@ const Dashboard = () => {
                   height: "40px",
                   color: "black",
                 },
+                
               }}
               slots={{
                 day: ServerDay,
@@ -315,7 +320,6 @@ const Dashboard = () => {
           />
         </Grid>
       </Box>
-      
     </Stack>
   );
 };

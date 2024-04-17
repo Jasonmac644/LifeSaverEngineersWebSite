@@ -26,7 +26,7 @@ yarn-error.log*
 .idea
 **/node_modules/*
 **/.firebaserc
-.LifeSaverEngineersWebSite\software-backend\lifesaverengineersvitaltracker-firebase-adminsdk-5krn7-56e7fe7ae8.json
+
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
