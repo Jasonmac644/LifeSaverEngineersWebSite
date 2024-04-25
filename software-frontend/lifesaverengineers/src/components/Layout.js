@@ -109,7 +109,8 @@ const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 						sx={{ width: 100, height: 100 }}
 					/>
 					<EText type="b18">
-						Welcome {toUpperCaseFirstWord(user.displayName)}
+						Welcome{" "}
+						{user.displayName && toUpperCaseFirstWord(user?.displayName)}
 					</EText>
 				</Box>
 				<Divider sx={{ my: "10px", borderWidth: "3px" }} />

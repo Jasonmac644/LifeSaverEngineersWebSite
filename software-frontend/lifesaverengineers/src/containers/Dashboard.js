@@ -55,8 +55,8 @@ const Graph = (props) => {
 						<Brush
 							height={50}
 							fill={appColor.ashGreen}
-							startIndex={Math.max(0, data.length - 25)}
-							endIndex={data.length - 1}
+							startIndex={Math.max(0, data?.length - 25)}
+							endIndex={data?.length - 1}
 							dataKey="timeStamp"
 						>
 							<AreaChart width={width} height={height} data={data}>
@@ -133,7 +133,8 @@ const Dashboard = () => {
 	//get key value from data with time stamp and return new obj
 	const handleObject = (object, type) => {
 		let name = type;
-		const newObject = object.map((element) => {
+
+		const newObject = object?.map((element) => {
 			let time = element.timestamp.slice(11, 16);
 
 			return {
