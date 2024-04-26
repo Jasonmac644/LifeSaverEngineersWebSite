@@ -21,16 +21,19 @@ export const FirebaseProvider = ({ children }) => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const storage = getStorage(app);
   const functions = getFunctions(app);
   const provider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [imageRef, setImageRef] = useState("");
 
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
+
+
 
   useEffect(() => {
     let unsubscribe;
@@ -44,13 +47,27 @@ export const FirebaseProvider = ({ children }) => {
     };
   }, []);
 
+
+  const fetchUserProfileImage = httpsCallable(functions, "getLatestImage");
+	useEffect(() => {
+		fetchUserProfileImage(user?.uid)
+			.then((e) => {
+				setImageRef(e.data.url);
+			})
+			.catch((e) => {
+				console.log(e.code);
+			});
+	}, []);
   const firebaseValue = {
     user: user,
     db: db,
     auth: auth,
+    storage: storage,
     setUser: setUser,
     logOut: logOut,
-    app: app
+    app: app,
+    imageRef, imageRef,
+    setImageRef, setImageRef
   };
 
   return (

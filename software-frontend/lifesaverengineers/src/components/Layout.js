@@ -37,8 +37,8 @@ import { useTheme, styled } from "@mui/material/styles";
 const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 	const navigate = useNavigate();
 	const curLocation = useLocation();
-	const { logOut, app, user } = useContext(Context);
-	const [imageRef, setImageRef] = useState("");
+	const { logOut, app, user, imageRef } = useContext(Context);
+	
 	const functions = getFunctions(app);
 
 	//If user ever decides to try and navigate to "/"
@@ -49,17 +49,7 @@ const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 		return () => {};
 	}, [curLocation, navigate]);
 
-	//fetchimagefrom firebase
-	const fetchUserProfileImage = httpsCallable(functions, "getLatestImage");
-	useEffect(() => {
-		fetchUserProfileImage(user.uid)
-			.then((e) => {
-				setImageRef(e.data.url);
-			})
-			.catch((e) => {
-				console.log(e.code);
-			});
-	}, []);
+	
 	//Signout
 	const handleSignOut = () => {
 		logOut()
@@ -70,7 +60,7 @@ const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 	};
 	const menuItems = [
 		{ text: "Dashboard", icon: <DashboardCustomizeIcon />, path: "/dashboard" },
-		//{ text: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
+		{ text: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
 		// { text: "Profile", icon: <DashboardCustomizeIcon />, path: "/profile" },
 		// { text: "Drafts", icon: <AccountCircleIcon />, path: "/drafts" },
 	];
@@ -106,7 +96,7 @@ const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 					<Avatar
 						src={imageRef}
 						alt="Main Logo"
-						sx={{ width: 100, height: 100 }}
+						sx={{ width: 100, height: 100, mb: "15px" }}
 					/>
 					<EText type="b18">
 						Welcome{" "}
@@ -167,7 +157,7 @@ const DrawerList = ({ drawerWidth, closeDrawer }, ...props) => {
 const Layout = ({ children, ...props }) => {
 	const drawerWidth = "258px";
 	const curLocation = useLocation();
-	const matches = useMediaQuery("(min-width:700px)");
+	const matches = useMediaQuery("(min-width:1400px)");
 	const theme = useTheme();
 	const [open, setOpen] = useState(false);
 
@@ -218,7 +208,7 @@ const Layout = ({ children, ...props }) => {
 				flexGrow={1}
 				bgcolor={appColor.ashGreenTint}
 				width="100%"
-				sx={!matches ? { height: "max-content" } : { height: "max-content" }}
+				sx={!matches ? { height: "max-content" } : { height: "100vh" }}
 			>
 				<Box flex={1} bgcolor={appColor.kaki}>
 					<EText
