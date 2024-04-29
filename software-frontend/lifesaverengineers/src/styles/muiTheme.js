@@ -1,8 +1,19 @@
 import { createTheme } from "@mui/material/styles";
 import appColor from "./colors";
+import "@fontsource/kanit"
 const theme = createTheme({
-	typography: {},
+	typography: {
+		fontFamily: "'kanit', sans-serif",
+	},
 	components: {
+		// MuiTooltip:{
+		// 	styleOverrides:{
+		// 		tooltip:{
+		// 			backgroundColor:appColor.gray,
+		// 			color:"white"
+		// 		}
+		// 	}
+		// },
 		MuiTextField: {
 			styleOverrides: {
 				root: {

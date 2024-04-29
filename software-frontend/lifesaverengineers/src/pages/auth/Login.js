@@ -26,7 +26,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState(false);
   const provider = new GoogleAuthProvider();
   const { auth } = useContext(Context);
-  const isValidEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const isValidEmail =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const onNext = (e) => {
     e.preventDefault();
     if (email.match(isValidEmail)) {
@@ -47,9 +48,9 @@ const Login = () => {
             setEmailError(true);
           }
         });
-    }else{
-		setEmailError(true)
-	}
+    } else {
+      setEmailError(true);
+    }
   };
   const onLogin = (e) => {
     e.preventDefault();
@@ -58,7 +59,6 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         navigate("/dashboard");
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -76,7 +76,11 @@ const Login = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    await signInWithRedirect(auth, provider);
+    try {
+      await signInWithRedirect(auth, provider);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -85,10 +89,10 @@ const Login = () => {
         .then((result) => {
           if (result) {
             navigate("/dashboard");
-          }
+          } 
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
         });
     }
   }, []);
@@ -127,7 +131,7 @@ const Login = () => {
           variant="filled"
           sx={{ width: "100%" }}
         >
-           Enter a valid Email
+          Enter a valid Email
         </Alert>
       </Snackbar>
       <Stack direction={"column"} mb={"10vh"}>
